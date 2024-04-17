@@ -1,3 +1,5 @@
+char *get_next_line(int fd);
+
 /*
 A good start would be to know what a static variable is
 
