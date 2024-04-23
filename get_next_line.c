@@ -1,60 +1,63 @@
 #include "get_next_line.h"
 
-t_list	*line_fetcher(int fd, t_list **lst, char *buffer)
+char	*get_line(int fd, char *str, char *buffer)
 {
-	// check \n ir \0 in lst
-	// fetch lines with read
-	// put lines into nodes
-	// append nodes to lst
-	// check for \n or \0
-	// if \n or \0 is found return lst
+	// check for \n ir \0 in str
+	// loop this ↓
+	// 		fetch lines with read
+	// 		join buffer to str
+	// 		check for \n or \0 in str
+	// ↑
+	// if \n or \0 is found return str
 
-	// while (bytes_read = read(fd, buffer, BUFFER_SIZE))
-	// {
-	// }
+	if (ft_strchr(str, '\n'))
+		return (str);
+	while (read(fd, buffer, BUFFER_SIZE))
+	{
+		ft_strjoin(str, buffer);
+		if(ft_strchr(buffer, '\n'))
+			return (str);
+	}
+	
 }
 
-char	*get_line(t_list **lst)
+char	*put_line_in_str(char *str)
 {
-	// receive lst
+	// receive str
 	// count char until \n or \0 and malloc that size
-	// add copy lst -> str to line until \n or \0 is found
+	// copy str up to \n or \0 to line
 	// return line
+
+	
 }
 
-t_list	*set_next_line(t_list **old_lst)
+char	*set_next_line(char *old_str)
 {
-	// receice old_lst
-	// create new_lst 
-	// add last node of previous old_lst after \n
-	// clear old_lst
-	// return new_lst
+	// receice old_str
+	// create new_str 
+	// copy old_str after \n to new_str
+	// free old_str
+	// return new_str
 }
 
 char *get_next_line(int fd)
 {
-	static t_list	*lst;
-	char			*line_2_read;
-	int				bytes_read;
-	char			*buffer;
+	static char	*str;
+	char		*line_2_read;
+	int			bytes_read;
+	char		buffer[BUFFER_SIZE];
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, buffer, 0))
-			return (NULL);
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, buffer, 0) == -1)
+		return (NULL);
 
-	lst = line_fetcher(fd, lst, buffer); // checks and adds content until \n or \0
+	str = get_line(fd, str, buffer); // checks and adds content until \n or \0
 
-	line_2_read = get_line(lst); // creates line that is \n terminated 
+	line_2_read = put_line_in_str(str); // creates line that is \n terminated 
 
-	lst = set_next_line(lst); // empties lst leaving only the beginning of next line
+	str = set_next_line(str); // empties str leaving only the beginning of next line
 
 	return (line_2_read);
 }
-
-// fetch line and add to lst
-// check for \n or \0 in new node
-// when \n is found make a string add all the previous nodes until \n and return it
-// create a new lst starting from the char after \n and free and delete previous lst
-// check for \n in new lst and redo the loop
 
 /*
 A good start would be to know what a static variable is

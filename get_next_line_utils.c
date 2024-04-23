@@ -1,22 +1,5 @@
 #include "get_next_line.h"
 
-char    *get_line(t_list *lst)
-{
-	int				str_len;
-	char			*str;
-
-	if (lst == NULL)
-		return (NULL);
-	
-	str_len = newline_finder(lst);
-	str = malloc(str_len + 1);
-	if (!str)
-		return;
-	
-	str = ft_strdup(lst -> line);
-	return (str);
-}
-
 char	*ft_strdup(const char *s)
 {
 	char	*dest;
@@ -42,6 +25,8 @@ char	*ft_strchr(const char *s, int c)
 {
 	int	i;
 
+	if(!s)
+		return (NULL);
 	i = -1;
 	while (++i <= (int)ft_strlen(s))
 		if (s[i] == (char) c)
@@ -63,11 +48,13 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (substr);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char const *s2)
 {
 	char	*str;
 
-	if (!s1 || !s2)
+	if (!s1)
+		s1 = "";
+	if (!s2)
 		return (0);
 	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (str == NULL)
