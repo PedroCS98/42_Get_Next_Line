@@ -9,16 +9,16 @@ char	*get_line(int fd, char *str, char *buffer)
 	// 		check for \n or \0 in str
 	// ↑
 	// if \n or \0 is found return str
-
-	if (ft_strchr(str, '\n'))
-		return (str);
+	if (ft_strchr(buffer, '\n') /*|| ft_strchr(buffer, '\0')*/)
+		return (buffer);
 	while (read(fd, buffer, BUFFER_SIZE))
 	{
 		ft_strjoin(str, buffer);
-		if(ft_strchr(buffer, '\n'))
-			return (str);
+		if(ft_strchr(buffer, '\n') /*|| ft_strchr(buffer, '\0')*/)
+			{
+				return (str);}
 	}
-	
+	return (str);
 }
 
 char	*put_line_in_str(char *str)
@@ -27,34 +27,55 @@ char	*put_line_in_str(char *str)
 	// count char until \n or \0 and malloc that size
 	// copy str up to \n or \0 to line
 	// return line
+	char	*line_2_read;
+	int		i;
 
-	
+	line_2_read = (char *)malloc(ft_strlen(str) + 1);
+	if (line_2_read == NULL)
+		return (NULL);
+	i = -1;
+	while (++i <= ft_strlen(str) && str[i + 1] != '\n' && str[i +1] != '\0')
+		line_2_read[i] = str[i];
+	line_2_read[i] = '\0';
+	return (line_2_read);
 }
 
-char	*set_next_line(char *old_str)
+char	*set_next_line(char *old_str, char *line_read)
 {
 	// receice old_str
 	// create new_str 
 	// copy old_str after \n to new_str
 	// free old_str
 	// return new_str
+	char	*new_str;
+	int		i;
+
+	new_str = (char *)malloc(ft_strlen(old_str) - ft_strlen(line_read) + 1);
+	if (new_str == NULL)
+		return (NULL);
+	i = ft_strlen(line_read);
+	while (++i <= ft_strlen(old_str) && old_str[i + 1] != '\n' && old_str[i +1] != '\0')
+		new_str[i] = old_str[i];
+	new_str[i] = '\0';
+	return (new_str);
 }
 
 char *get_next_line(int fd)
 {
-	static char	*str;
+	static char	buffer[BUFFER_SIZE];
+	char		*str;
 	char		*line_2_read;
 	int			bytes_read;
-	char		buffer[BUFFER_SIZE];
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, buffer, 0) == -1)
 		return (NULL);
 
+printf("here");
 	str = get_line(fd, str, buffer); // checks and adds content until \n or \0
 
 	line_2_read = put_line_in_str(str); // creates line that is \n terminated 
 
-	str = set_next_line(str); // empties str leaving only the beginning of next line
+	str = set_next_line(str, line_2_read); // empties str leaving only the beginning of next line
 
 	return (line_2_read);
 }
