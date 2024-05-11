@@ -45,7 +45,7 @@ int	main()
 	// 	{
 	// 		printf("found newline\n");
 	// 		//return (0);
-	// 	}
+	//  	}
 	// }
 	close(fd);
 	return (0);
