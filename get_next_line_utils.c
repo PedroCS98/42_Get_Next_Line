@@ -17,9 +17,11 @@ size_t	ft_strlen(const char *s)
 {
 	size_t	i;
 
-	i = -1;
-	while (s[++i])
-		;
+	i = 0;
+	if(!s)
+		return (0);
+	while (s[i])
+		i++;
 	return (i);
 }
 
@@ -57,7 +59,7 @@ char	*ft_strjoin(char *s1, char const *s2)
 	char	*str;
 
 	if (!s1)
-		s1 = "";
+		s1 = NULL;
 	if (!s2)
 		return (0);
 	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);

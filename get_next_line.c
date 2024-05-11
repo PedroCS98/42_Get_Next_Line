@@ -9,14 +9,13 @@ char	*get_line(int fd, char *str, char *buffer)
 	// 		check for \n or \0 in str
 	// ↑
 	// if \n or \0 is found return str
-	if (ft_strchr(buffer, '\n') /*|| ft_strchr(buffer, '\0')*/)
-		return (buffer);
+	if (ft_strchr(str, '\n') /*|| ft_strchr(buffer, '\0')*/)
+		return (str);
 	while (read(fd, buffer, BUFFER_SIZE))
 	{
-		ft_strjoin(str, buffer);
+		str = ft_strjoin(str, buffer);
 		if(ft_strchr(buffer, '\n') /*|| ft_strchr(buffer, '\0')*/)
-			{
-				return (str);}
+				return (str);
 	}
 	return (str);
 }
@@ -34,7 +33,7 @@ char	*put_line_in_str(char *str)
 	if (line_2_read == NULL)
 		return (NULL);
 	i = -1;
-	while (++i <= ft_strlen(str) && str[i + 1] != '\n' && str[i +1] != '\0')
+	while (++i <= ft_strlen(str) && str[i] != '\n' && str[i] != '\0')
 		line_2_read[i] = str[i];
 	line_2_read[i] = '\0';
 	return (line_2_read);
@@ -49,34 +48,35 @@ char	*set_next_line(char *old_str, char *line_read)
 	// return new_str
 	char	*new_str;
 	int		i;
+	int		j;
 
 	new_str = (char *)malloc(ft_strlen(old_str) - ft_strlen(line_read) + 1);
 	if (new_str == NULL)
 		return (NULL);
 	i = ft_strlen(line_read);
-	while (++i <= ft_strlen(old_str) && old_str[i + 1] != '\n' && old_str[i +1] != '\0')
-		new_str[i] = old_str[i];
+	j = 0;
+	while (++i <= ft_strlen(old_str) && old_str[i] != '\n' && old_str[i] != '\0')
+		new_str[j++] = old_str[i];
 	new_str[i] = '\0';
 	return (new_str);
 }
 
 char *get_next_line(int fd)
 {
-	static char	buffer[BUFFER_SIZE];
+	static char	buffer[BUFFER_SIZE + 1];
 	char		*str;
 	char		*line_2_read;
 	int			bytes_read;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, buffer, 0) == -1)
 		return (NULL);
-
-printf("here");
+	if(!str)
+		str = NULL;
 	str = get_line(fd, str, buffer); // checks and adds content until \n or \0
 
 	line_2_read = put_line_in_str(str); // creates line that is \n terminated 
 
 	str = set_next_line(str, line_2_read); // empties str leaving only the beginning of next line
-
 	return (line_2_read);
 }
 

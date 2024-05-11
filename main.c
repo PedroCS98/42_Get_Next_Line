@@ -29,10 +29,9 @@ int	main()
 {
 	//static char buffer[BUFFER_SIZE];
 	int fd  = open("test.txt", O_RDONLY);
-	printf("here\n");
 	printf("%s\n", get_next_line(fd));
-	//printf("%s\n", get_next_line(fd));
-	//printf("%s\n", get_next_line(fd));
+	printf("%s\n", get_next_line(fd));
+	printf("%s\n", get_next_line(fd));
 
 	// int x = 1;
 	// while (x)
