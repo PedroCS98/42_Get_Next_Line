@@ -1,17 +1,5 @@
 #include "get_next_line.h"
 
-/*
-char	*ft_strdup(const char *s)
-{
-	char	*dest;
-
-	dest = (char *)malloc(ft_strlen(s) + 1);
-	if (dest == NULL)
-		return (NULL);
-	ft_strlcpy(dest, s, ft_strlen(s) + 1);
-	return (dest);
-}
-*/
 
 size_t	ft_strlen(const char *s)
 {
@@ -37,22 +25,6 @@ char	*ft_strchr(const char *s, int c)
 			return ((char *)(s + i));
 	return (NULL);
 }
-
-/*
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	char	*substr;
-
-	substr = (char *)ft_calloc(len + 1, 1);
-	if (substr == NULL)
-		return (NULL);
-	if (ft_strlen(s) >= len)
-		ft_strlcpy(substr, s + start, len + 1);
-	else
-		ft_strlcpy(substr, s + start, ft_strlen(s) + 1);
-	return (substr);
-}
-*/
 
 char	*ft_strjoin(char *s1, char const *s2)
 {

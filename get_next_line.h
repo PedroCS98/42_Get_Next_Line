@@ -12,7 +12,7 @@
 # include <limits.h>
 
 char	*get_next_line(int fd);
-char	*get_line(int fd, char *str, char *buffer);
+char	*fetch_line(int fd, char *str, char *buffer);
 char	*put_line_in_str(char *str);
 char	*set_next_line(char *old_str, char *line_read);
 
