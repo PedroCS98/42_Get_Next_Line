@@ -7,10 +7,13 @@ int	main()
 	char	*line;
 	int 	i;
 
-	int fd  = open("test2.txt", O_RDONLY);
+	int fd  = open("test.txt", O_RDONLY);
 	i = 0;
 	while ((line = get_next_line(fd)) && ++i)
+	{
 		printf(/*line %d - */"%s", /*i,*/ line);
+		free(line);
+	}
 	close(fd);
 	return (0);
 }
