@@ -47,6 +47,7 @@ char	*clean_stash(char *old_stash, char *line_read)
 		new_stash[j++] = old_stash[i];
 	new_stash[i] = '\0';
 	free(old_stash);
+	//free(line_read);
 	return (new_stash);
 }
 
@@ -57,6 +58,7 @@ char *get_next_line(int fd)
 	char		*line_2_read;
 	ssize_t		bytes_read;
 
+	bytes_read = 0;
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, buffer, 0) == -1)
 		return (NULL);
 	//bytes_read = 0;
@@ -71,7 +73,10 @@ char *get_next_line(int fd)
 	//printf("\nThe stash is - %s\n\n", stash);
 	//printf("%zu bytes - ", bytes_read);
 	if (!bytes_read)
+	{
+		free(stash);
 		return (NULL);
+	}
 	line_2_read = put_stash_in_line(stash); // creates line that is \n terminated 
 
 	stash = clean_stash(stash, line_2_read); // empties stash leaving only the beginning of next line
