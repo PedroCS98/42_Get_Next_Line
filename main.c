@@ -7,7 +7,7 @@ int	main()
 	char	*line;
 	int 	i;
 
-	int fd  = open("test.txt", O_RDONLY);
+	int fd  = open("test2.txt", O_RDONLY);
 	i = 0;
 	while ((line = get_next_line(fd)) && ++i)
 		printf(/*line %d - */"%s", /*i,*/ line);
@@ -18,6 +18,8 @@ int	main()
 /*
 
 Nao posso ter a verificacao inicial do get net line com o ffersize a 0
+
+Usar Valgrind para encontrar o porque de malloc trippar qd chamo com buffersize under >= 4
 
 A good start would be to know what a static variable is
 

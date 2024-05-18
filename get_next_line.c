@@ -8,24 +8,22 @@ char	*put_stash_in_line(char *stash)
 	// copy stash up to \n or \0 to line
 	// return line
 	char	*line_2_read;
-	char	*temp_stash;
 	int		i;
 
-	temp_stash = stash;
-	line_2_read = (char *)malloc(ft_strlen(stash) + 1);
+	i = 0;
+	while (stash[i] != '\n' && stash[i] != '\0')
+		i++;
+	line_2_read = (char *)malloc((i + 2) * sizeof(char));
 	if (line_2_read == NULL)
 		return (NULL);
 	i = -1;
-	while (++i <= ft_strlen(stash) && stash[i] != '\n' && stash[i] != '\0')
+	while (stash[++i] != '\n' && stash[i] != '\0')
 		line_2_read[i] = stash[i];
+	//printf("copied %d bytes from stash", i);
 	if (stash[i] == '\n' || stash[i] == '\0')
 		line_2_read[i] = stash[i];
-	// while(++i <= ft_strlen(stash))
-	// {
-
-	// }
-
-
+	line_2_read[++i] = '\0';
+	//printf("\nThe stash was: %s\nthe line returned is: %s\n", stash, line_2_read);
 	return (line_2_read);
 }
 
@@ -65,11 +63,12 @@ char *get_next_line(int fd)
 	if (!ft_strchr(stash, '\n') /*|| !ft_strchr(buffer, '\0')*/)
 		while ((bytes_read = read(fd, buffer, BUFFER_SIZE)))
 		{
+			//printf("\nThe buffer is: %s\n", buffer);
 			stash = ft_strjoin(stash, buffer);
 			if(ft_strchr(buffer, '\n') /*|| ft_strchr(buffer, '\0')*/)
 					break;
 		}
-	//printf("The stash is - %s\n\n", stash);
+	//printf("\nThe stash is - %s\n\n", stash);
 	//printf("%zu bytes - ", bytes_read);
 	if (!bytes_read)
 		return (NULL);
