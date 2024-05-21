@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: psimoes <psimoes@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/21 20:27:10 by psimoes           #+#    #+#             */
+/*   Updated: 2024/05/21 20:29:47 by psimoes          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 20
-#endif
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 20
+# endif
 
 # include <unistd.h>
 # include <stdio.h>
