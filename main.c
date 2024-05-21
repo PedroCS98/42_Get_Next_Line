@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: psimoes <psimoes@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/21 20:27:39 by psimoes           #+#    #+#             */
+/*   Updated: 2024/05/21 22:40:25 by psimoes          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 #include <fcntl.h>
 #include <stdio.h>
@@ -20,7 +32,7 @@ int	main()
 
 /*
 
-Nao posso ter a verificacao inicial do get net line com o ffersize a 0
+Nao posso ter a verificacao inicial do get net line com o buffersize a 0
 
 Usar Valgrind para encontrar o porque de malloc trippar qd chamo com buffersize under >= 4
 
