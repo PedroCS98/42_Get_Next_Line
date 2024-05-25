@@ -37,6 +37,16 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
+void	*ft_memset(void *s, int c, size_t n)
+{
+	size_t	i;
+
+	i = -1;
+	while (++i < n)
+		((unsigned char *) s)[i] = (unsigned char) c;
+	return (s);
+}
+
 char	*ft_strjoin(char *s1, char const *s2)
 {
 	char	*str;
@@ -48,6 +58,7 @@ char	*ft_strjoin(char *s1, char const *s2)
 	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (str == NULL)
 		return (NULL);
+	ft_memset(str, 0, ft_strlen(s1) + ft_strlen(s2) + 1);
 	ft_strlcpy(str, s1, ft_strlen(s1) + 1);
 	ft_strlcat(str, s2, ft_strlen(s1) + ft_strlen(s2) + 1);
 	free(s1);
