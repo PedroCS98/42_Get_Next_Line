@@ -6,7 +6,7 @@
 /*   By: psimoes <psimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:27:39 by psimoes           #+#    #+#             */
-/*   Updated: 2024/05/21 22:41:43 by psimoes          ###   ########.fr       */
+/*   Updated: 2024/05/25 20:15:03 by psimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,30 @@ files:
 • get_next_line_bonus.c
 • get_next_line_bonus.h
 • get_next_line_utils_bonus.c
+*/
+
+/*
+slightly improved function so it always allocs the right size
+char	*put_stash_in_line(char *stash)
+{
+	char	*line_2_read;
+	int		i;
+
+	i = 0;
+	while (stash[i+1] != '\n' && stash[i] != '\0')
+		i++;
+	line_2_read = (char *)malloc((i + 1) * sizeof(char));
+	if (line_2_read == NULL)
+		return (NULL);
+	i = -1;
+	while (stash[++i] != '\n' && stash[i] != '\0')
+		line_2_read[i] = stash[i];
+	//printf("copied %d bytes from stash", i);
+	if (stash[i] == '\n')
+		line_2_read[i] = stash[i++];
+	line_2_read[i] = '\0';
+	//printf("\nThe stash was: %s\nthe line returned is: %s\n", stash, line_2_read);
+	//stash = clean_stash(stash, line_2_read);
+	return (line_2_read);
+}
 */
