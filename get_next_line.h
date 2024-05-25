@@ -6,7 +6,7 @@
 /*   By: psimoes <psimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:27:10 by psimoes           #+#    #+#             */
-/*   Updated: 2024/05/21 20:29:47 by psimoes          ###   ########.fr       */
+/*   Updated: 2024/05/25 20:13:54 by psimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char *s1, char const *s2);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
+void	*ft_memset(void *s, int c, size_t n);
 
 #endif
