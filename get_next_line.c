@@ -6,7 +6,7 @@
 /*   By: psimoes <psimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:27:31 by psimoes           #+#    #+#             */
-/*   Updated: 2024/05/21 22:38:00 by psimoes          ###   ########.fr       */
+/*   Updated: 2024/05/25 21:16:18 by psimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ char	*clean_stash(char *old_stash, char *line_read)
 	int		i;
 	int		j;
 
-	new_stash = (char *)malloc(ft_strlen(old_stash) - ft_strlen(line_read) + 1);
+	i = ft_strlen(old_stash) - ft_strlen(line_read);
+	new_stash = (char *)malloc(i + 1);
 	if (new_stash == NULL)
 		return (NULL);
+	ft_memset(new_stash, 0, i + 1);
 	i = ft_strlen(line_read) - 1;
 	j = 0;
 	while (/*++i <= ft_strlen(old_stash)*/ /*&& old_stash[i] != '\n' &&*/ old_stash[++i] != '\0')
@@ -41,6 +43,7 @@ char	*put_stash_in_line(char *stash)
 	line_2_read = (char *)malloc((i + 2) * sizeof(char));
 	if (line_2_read == NULL)
 		return (NULL);
+	ft_memset(line_2_read, 0, i + 2);
 	i = -1;
 	while (stash[++i] != '\n' && stash[i] != '\0')
 		line_2_read[i] = stash[i];
@@ -68,7 +71,9 @@ char	*get_next_line(int fd)
 		while (bytes_read > 0)
 		{
 			bytes_read = read(fd, buffer, BUFFER_SIZE);
+			//printf("\nThe buffer is - %s\n\n", buffer);
 			stash = ft_strjoin(stash, buffer);
+			//printf("\nThe stash is - %s\n\n", stash);
 			if (ft_strchr(buffer, '\n') /*|| ft_strchr(buffer, '\0')*/)
 				break ;
 		}
