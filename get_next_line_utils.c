@@ -37,19 +37,11 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-void	*ft_memset(void *s, int c, size_t n)
-{
-	size_t	i;
-
-	i = -1;
-	while (++i < n)
-		((unsigned char *) s)[i] = (unsigned char) c;
-	return (s);
-}
-
 char	*ft_strjoin(char *s1, char const *s2)
 {
 	char	*str;
+	size_t	i;
+	size_t	j;
 
 	if (!s1)
 		s1 = NULL;
@@ -58,39 +50,58 @@ char	*ft_strjoin(char *s1, char const *s2)
 	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (str == NULL)
 		return (NULL);
-	ft_memset(str, 0, ft_strlen(s1) + ft_strlen(s2) + 1);
-	ft_strlcpy(str, s1, ft_strlen(s1) + 1);
-	ft_strlcat(str, s2, ft_strlen(s1) + ft_strlen(s2) + 1);
+	//ft_memset(str, 0, ft_strlen(s1) + ft_strlen(s2) + 1);
+	i = -1;
+	while (++i < ft_strlen(s1) + ft_strlen(s2) + 1)
+		((unsigned char *) str)[i] = (unsigned char) 0;
+	i = -1;
+	while (++i < ft_strlen(s1) && s1[i])
+		str[i] = s1[i];
+	i--;
+	j = i + 1;
+	while (++i < ft_strlen(s1) + ft_strlen(s2) && s2[i - j])
+		str[i] = s2[i - j];
+	str[i] = '\0';
 	free(s1);
 	return (str);
 }
 
-size_t	ft_strlcat(char *dst, const char *src, size_t size)
-{
-	size_t	i;
-	size_t	j;
+// void	*ft_memset(void *s, int c, size_t n)
+// {
+// 	size_t	i;
 
-	if ((!dst || !src) && !size)
-		return (0);
-	i = ft_strlen(dst);
-	if (size == 0 || size <= i--)
-		return (ft_strlen(src) + size);
-	j = i + 1;
-	while (++i < size - 1 && src[i - j])
-		dst[i] = src[i - j];
-	dst[i] = '\0';
-	return (j + ft_strlen(src));
-}
+// 	i = -1;
+// 	while (++i < n)
+// 		((unsigned char *) s)[i] = (unsigned char) c;
+// 	return (s);
+// }
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
-{
-	size_t	i;
+// size_t	ft_strlcat(char *dst, const char *src, size_t size)
+// {
+// 	size_t	i;
+// 	size_t	j;
 
-	if (size == 0)
-		return (ft_strlen(src));
-	i = -1;
-	while (++i < (size - 1) && src[i])
-		dst[i] = src[i];
-	dst[i] = '\0';
-	return (ft_strlen(src));
-}
+// 	if ((!dst || !src) && !size)
+// 		return (0);
+// 	i = ft_strlen(dst);
+// 	if (size == 0 || size <= i--)
+// 		return (ft_strlen(src) + size);
+// 	j = i + 1;
+// 	while (++i < size - 1 && src[i - j])
+// 		dst[i] = src[i - j];
+// 	dst[i] = '\0';
+// 	return (j + ft_strlen(src));
+// }
+
+// size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+// {
+// 	size_t	i;
+
+// 	if (size == 0)
+// 		return (ft_strlen(src));
+// 	i = -1;
+// 	while (++i < (size - 1) && src[i])
+// 		dst[i] = src[i];
+// 	dst[i] = '\0';
+// 	return (ft_strlen(src));
+// }

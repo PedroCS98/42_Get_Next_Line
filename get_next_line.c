@@ -6,7 +6,7 @@
 /*   By: psimoes <psimoes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:27:31 by psimoes           #+#    #+#             */
-/*   Updated: 2024/05/25 21:16:18 by psimoes          ###   ########.fr       */
+/*   Updated: 2024/06/08 16:15:54 by psimoes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,16 @@ char	*clean_stash(char *old_stash, char *line_read)
 	char	*new_stash;
 	int		i;
 	int		j;
+	int		size;
 
-	i = ft_strlen(old_stash) - ft_strlen(line_read);
-	new_stash = (char *)malloc(i + 1);
+	size = ft_strlen(old_stash) - ft_strlen(line_read) + 1;
+	new_stash = (char *)malloc(size);
 	if (new_stash == NULL)
 		return (NULL);
-	ft_memset(new_stash, 0, i + 1);
+	//ft_memset(new_stash, 0, size + 1);
+	i = -1;
+	while (++i < size)
+		((unsigned char *) new_stash)[i] = (unsigned char) 0;
 	i = ft_strlen(line_read) - 1;
 	j = 0;
 	while (/*++i <= ft_strlen(old_stash)*/ /*&& old_stash[i] != '\n' &&*/ old_stash[++i] != '\0')
@@ -36,14 +40,18 @@ char	*put_stash_in_line(char *stash)
 {
 	char	*line_2_read;
 	int		i;
+	int		size;
 
-	i = 0;
-	while (stash[i] != '\n' && stash[i] != '\0')
-		i++;
-	line_2_read = (char *)malloc((i + 2) * sizeof(char));
+	size = 0;
+	while (stash[size] != '\n' && stash[size] != '\0')
+		size++;
+	line_2_read = (char *)malloc((size + 2) * sizeof(char));
 	if (line_2_read == NULL)
 		return (NULL);
-	ft_memset(line_2_read, 0, i + 2);
+	//ft_memset(line_2_read, 0, size + 2);
+	i = -1;
+	while (++i < size + 2)
+		((unsigned char *) line_2_read)[i] = (unsigned char) 0;
 	i = -1;
 	while (stash[++i] != '\n' && stash[i] != '\0')
 		line_2_read[i] = stash[i];
