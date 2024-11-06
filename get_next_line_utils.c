@@ -50,58 +50,66 @@ char	*ft_strjoin(char *s1, char const *s2)
 	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (str == NULL)
 		return (NULL);
-	//ft_memset(str, 0, ft_strlen(s1) + ft_strlen(s2) + 1);
 	i = -1;
 	while (++i < ft_strlen(s1) + ft_strlen(s2) + 1)
 		((unsigned char *) str)[i] = (unsigned char) 0;
 	i = -1;
 	while (++i < ft_strlen(s1) && s1[i])
 		str[i] = s1[i];
-	i--;
-	j = i + 1;
-	while (++i < ft_strlen(s1) + ft_strlen(s2) && s2[i - j])
-		str[i] = s2[i - j];
+	j = 0;
+	while (j < ft_strlen(s2) && s2[j])
+		str[i++] = s2[j++];
 	str[i] = '\0';
 	free(s1);
 	return (str);
 }
 
-// void	*ft_memset(void *s, int c, size_t n)
-// {
-// 	size_t	i;
+char	*clean_stash(char *old_stash, char *line_read)
+{
+	char	*new_stash;
+	int		i;
+	int		offset;
+	int		new_size;
 
-// 	i = -1;
-// 	while (++i < n)
-// 		((unsigned char *) s)[i] = (unsigned char) c;
-// 	return (s);
-// }
+	offset = ft_strlen(line_read);
+	new_size = ft_strlen(old_stash) - offset;
+	new_stash = (char *)malloc(new_size + 1);
+	if (new_stash == NULL)
+		return (NULL);
+	i = -1;
+	while (++i < new_size + 1)
+		((unsigned char *) new_stash)[i] = (unsigned char) 0;
+	i = -1;
+	while (++i < new_size)
+		new_stash[i] = old_stash[i + offset];
+	new_stash[new_size] = '\0';
+	free(old_stash);
+	return (new_stash);
+}
 
-// size_t	ft_strlcat(char *dst, const char *src, size_t size)
-// {
-// 	size_t	i;
-// 	size_t	j;
+char	*put_stash_in_line(char *stash)
+{
+	char	*line_2_read;
+	int		i;
+	int		size;
 
-// 	if ((!dst || !src) && !size)
-// 		return (0);
-// 	i = ft_strlen(dst);
-// 	if (size == 0 || size <= i--)
-// 		return (ft_strlen(src) + size);
-// 	j = i + 1;
-// 	while (++i < size - 1 && src[i - j])
-// 		dst[i] = src[i - j];
-// 	dst[i] = '\0';
-// 	return (j + ft_strlen(src));
-// }
-
-// size_t	ft_strlcpy(char *dst, const char *src, size_t size)
-// {
-// 	size_t	i;
-
-// 	if (size == 0)
-// 		return (ft_strlen(src));
-// 	i = -1;
-// 	while (++i < (size - 1) && src[i])
-// 		dst[i] = src[i];
-// 	dst[i] = '\0';
-// 	return (ft_strlen(src));
-// }
+	size = 0;
+	while (stash[size] != '\n' && stash[size] != '\0')
+		size++;
+	line_2_read = (char *)malloc((size + 2) * sizeof(char));
+	if (line_2_read == NULL)
+		return (NULL);
+	i = -1;
+	while (++i < size + 2)
+		((unsigned char *) line_2_read)[i] = (unsigned char) 0;
+	i = -1;
+	while (stash[++i] != '\n' && stash[i] != '\0')
+		line_2_read[i] = stash[i];
+	//printf("copied %d bytes from stash", i);
+	if (stash[i] == '\n')
+		line_2_read[i++] = '\n';
+	line_2_read[i] = '\0';
+	//printf("\nThe stash was: %s\nthe line returned is: %s\n", stash, line_2_read);
+	//stash = clean_stash(stash, line_2_read);
+	return (line_2_read);
+}
