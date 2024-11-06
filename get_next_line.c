@@ -28,12 +28,10 @@ char	*get_next_line(int fd)
 		if (bytes_read == -1)
 			return (free(stash), stash = NULL, NULL);
 		buffer[bytes_read] = '\0';
-		//printf("\nThe uga buffer is - %s\n\n", buffer);
 		stash = ft_strjoin(stash, buffer);
-		//printf("\nThe stash is - %s\n\n", stash);
+		if (!stash)
+			return (NULL);
 	}
-	//printf("\nThe stash is - %s\n\n", stash);
-	//printf("%zu bytes - ", bytes_read);
 	if (!stash || !*stash)
 		return (free(stash), stash = NULL, NULL);
 	line_2_read = put_stash_in_line(stash);

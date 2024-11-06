@@ -105,11 +105,8 @@ char	*put_stash_in_line(char *stash)
 	i = -1;
 	while (stash[++i] != '\n' && stash[i] != '\0')
 		line_2_read[i] = stash[i];
-	//printf("copied %d bytes from stash", i);
 	if (stash[i] == '\n')
 		line_2_read[i++] = '\n';
 	line_2_read[i] = '\0';
-	//printf("\nThe stash was: %s\nthe line returned is: %s\n", stash, line_2_read);
-	//stash = clean_stash(stash, line_2_read);
 	return (line_2_read);
 }
