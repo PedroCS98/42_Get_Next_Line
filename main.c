@@ -20,6 +20,7 @@ int	main()
 	int 	i;
 
 	int fd  = open("test.txt", O_RDONLY);
+	//int fd = 0; //std input
 	i = 0;
 	while ((line = get_next_line(fd)) && ++i)
 	{
@@ -45,16 +46,16 @@ our function should return the line that was read.
 If there is nothing else to read or if an error occurred, it should return NULL.
 
 Make sure that your function works as expected both when reading a file and when
-reading from the standard input.------------------
+reading from the standard input.
 
 Please note that the returned line should include the terminating \n character,
 except if the end of file was reached and does not end with a \n character.
 
 Because you will have to read files in get_next_line(), add this option to your
-compiler call: -D BUFFER_SIZE=n----------
+compiler call: -D BUFFER_SIZE=n
 It will define the buffer size for read().
 The buffer size value will be modified by your peer-evaluators and the Moulinette
-in order to test your code.-------------
+in order to test your code.
 
 You will compile your code as follows (a buffer size of 42 is used as an example):
 cc -Wall -Wextra -Werror -D BUFFER_SIZE=42 <files>.c
