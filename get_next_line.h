@@ -24,10 +24,10 @@
 # include <limits.h>
 
 char	*get_next_line(int fd);
-char	*put_stash_in_line(char *stash);
-char	*clean_stash(char *old_stash, char *line_read);
+char	*clean_line(char *line);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char *s1, char const *s2);
+void	clean_buffer(char *buf);
 size_t	ft_strlen(const char *s);
 
 #endif

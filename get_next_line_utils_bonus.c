@@ -31,70 +31,72 @@ char	*ft_strjoin(char *s1, char const *s2)
 	size_t	i;
 	size_t	j;
 
-	if (!s1)
-		s1 = NULL;
 	if (!s2)
 		return (0);
-	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	str = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	str[ft_strlen(s1) + ft_strlen(s2)] = 0;
 	if (str == NULL)
-		return (NULL);
+		return (free(s1), NULL);
 	i = -1;
-	while (++i < ft_strlen(s1) + ft_strlen(s2) + 1)
-		((unsigned char *) str)[i] = (unsigned char) 0;
-	i = -1;
-	while (++i < ft_strlen(s1) && s1[i])
+	if (!s1)
+	{
+		while (s2[++i])
+			str[i] = s2[i];
+		return (str);
+	}
+	while (s1 && s1[++i])
 		str[i] = s1[i];
-	j = 0;
-	while (j < ft_strlen(s2) && s2[j])
-		str[i++] = s2[j++];
-	str[i] = '\0';
-	free(s1);
+	j = -1;
+	while (s2[++j])
+		str[i++] = s2[j];
+	if (s1)
+		free(s1);
 	return (str);
 }
 
-char	*clean_stash(char *old_stash, char *line_read)
+void	clean_buffer(char *buf)
 {
-	char	*new_stash;
-	int		i;
-	int		offset;
-	int		new_size;
+	int	i;
+	int	j;
 
-	offset = ft_strlen(line_read);
-	new_size = ft_strlen(old_stash) - offset;
-	new_stash = (char *)malloc(new_size + 1);
-	if (new_stash == NULL)
-		return (NULL);
 	i = -1;
-	while (++i < new_size + 1)
-		((unsigned char *) new_stash)[i] = (unsigned char) 0;
-	i = -1;
-	while (++i < new_size)
-		new_stash[i] = old_stash[i + offset];
-	new_stash[new_size] = '\0';
-	free(old_stash);
-	return (new_stash);
+	j = 0;
+	while (buf[++i] != '\n' && i < BUFFER_SIZE)
+		;
+	if (buf[i] == '\n')
+	{
+		buf[i] = 0;
+		i++;
+		while (i < BUFFER_SIZE)
+		{
+			buf[j] = buf[i];
+			buf[i++] = 0;
+			j++;
+		}
+	}
+	while (j < BUFFER_SIZE)
+		buf[j++] = 0;
 }
 
-char	*put_stash_in_line(char *stash)
+char	*clean_line(char *line)
 {
 	char	*line_2_read;
 	int		i;
-	int		size;
 
-	size = 0;
-	while (stash[size] != '\n' && stash[size] != '\0')
-		size++;
-	line_2_read = (char *)malloc((size + 2) * sizeof(char));
-	if (line_2_read == NULL)
+	i = -1;
+	while (line[++i] != '\n' && line[i])
+		;
+	if (line[i] == '\n')
+		i++;
+	line_2_read = malloc(i + 1);
+	if (!line_2_read)
 		return (NULL);
 	i = -1;
-	while (++i < size + 2)
-		((unsigned char *) line_2_read)[i] = (unsigned char) 0;
-	i = -1;
-	while (stash[++i] != '\n' && stash[i] != '\0')
-		line_2_read[i] = stash[i];
-	if (stash[i] == '\n')
+	while (line[++i] != '\n' && line[i])
+		line_2_read[i] = line[i];
+	if (line[i] == '\n')
 		line_2_read[i++] = '\n';
-	line_2_read[i] = '\0';
+	line_2_read[i] = 0;
+	free(line);
 	return (line_2_read);
 }

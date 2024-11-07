@@ -14,27 +14,28 @@
 
 char	*get_next_line(int fd)
 {
-	static char	*stash;
-	char		buffer[BUFFER_SIZE + 1];
-	char		*line_2_read;
+	static char	buffer[BUFFER_SIZE + 1];
+	char		*line;
 	ssize_t		bytes_read;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	bytes_read = 1;
-	while (!ft_strchr(stash, '\n') && bytes_read > 0)
+	line = NULL;
+	line = ft_strjoin(line, buffer);
+	while (!ft_strchr(buffer, '\n') && bytes_read > 0)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		if (bytes_read == -1)
-			return (free(stash), stash = NULL, NULL);
-		buffer[bytes_read] = '\0';
-		stash = ft_strjoin(stash, buffer);
-		if (!stash)
+		buffer[bytes_read] = 0;
+		if (bytes_read <= -1)
+			return (free(line), NULL);
+		line = ft_strjoin(line, buffer);
+		if (!line)
 			return (NULL);
 	}
-	if (!stash || !*stash)
-		return (free(stash), stash = NULL, NULL);
-	line_2_read = put_stash_in_line(stash);
-	stash = clean_stash(stash, line_2_read);
-	return (line_2_read);
+	line = clean_line(line);
+	if (!line || !*line)
+		return (free(line), NULL);
+	clean_buffer(buffer);
+	return (line);
 }

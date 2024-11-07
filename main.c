@@ -30,7 +30,19 @@ int	main()
 	close(fd);
 	return (0);
 }
-
+ 
+// int	main()
+// {
+// 	char *line;
+// 	do
+// 	{
+// 		line = get_next_line(0);
+// 		printf("%s", line);
+// 		free(line);
+// 	} while (line);
+	
+// 	return (0);
+// }
 /*
 
 Nao posso ter a verificacao inicial do get net line com o buffersize a 0
@@ -68,7 +80,7 @@ We also consider that get_next_line() has an undefined behavior when reading
 a binary file. However, you can implement a logical way to handle this behavior if
 you want to.------------
 
-BONUS---------------
+BONUS
 
 Develop get_next_line() using only one static variable.
 
