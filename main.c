@@ -10,27 +10,72 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+// #include "get_next_line.h"
+// #include <fcntl.h>
+// #include <stdio.h>
+
+// int	main()
+// {
+// 	char	*line;
+// 	int 	i;
+
+// 	int fd  = open("test.txt", O_RDONLY);
+// 	//int fd = 0; //std input
+// 	i = 0;
+// 	while ((line = get_next_line(fd)) && ++i)
+// 	{
+// 		printf(/*line %d - */"%s", /*i,*/ line);
+// 		free(line);
+// 	}
+// 	close(fd);
+// 	return (0);
+// }
+
+#include <stdlib.h>
 #include <fcntl.h>
 #include <stdio.h>
+#include "get_next_line.h"
 
-int	main()
+int main(int argc, char **argv)
 {
-	char	*line;
-	int 	i;
+    int fd1;
+    int fd2;
+    int fd3;
+    char *ptr;
 
-	int fd  = open("test.txt", O_RDONLY);
-	//int fd = 0; //std input
-	i = 0;
-	while ((line = get_next_line(fd)) && ++i)
-	{
-		printf(/*line %d - */"%s", /*i,*/ line);
-		free(line);
-	}
-	close(fd);
-	return (0);
+    ptr = NULL;
+    if (argc != 4)
+    {
+        printf("\nToo many args. Usage: ./main [file] [nbr of lines]\n");
+        return (1);
+    }
+    fd1 = open(argv[1], O_RDONLY);
+    fd2 = open(argv[2], O_RDONLY);
+    fd3 = open(argv[3], O_RDONLY);
+    if (fd1 < 0 || fd2 < 0 || fd3 < 0)
+    {
+        printf("Error opening file");
+        return (1);
+    }
+    printf("\n--- GET NEXT LINE ---\n");
+    for (int i = 0; i < 10; i++)
+    {
+
+        ptr = get_next_line(fd1);
+        printf("1st: %s", ptr);
+        free (ptr);
+        ptr = get_next_line(fd2);
+        printf("%s", ptr);
+        free(ptr);
+        ptr = get_next_line(fd3);
+        printf("%s", ptr);
+        free (ptr);
+    }
+    printf("\n--------------------------\n");
+    return (0);
 }
- 
+
+
 // int	main()
 // {
 // 	char *line;
